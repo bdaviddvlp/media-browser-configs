@@ -32,8 +32,8 @@ echo "This script will install media-browser. Please read the instructions caref
 echo "Press enter to continue"
 read -r
 
-# Set editor
-if [ -z "$EDITOR" ]
+# Check if editor is set
+if [ -z "${EDITOR}" ]
 then
     echo "Choose your editor (nano, vim, etc.):"
     read -r e
