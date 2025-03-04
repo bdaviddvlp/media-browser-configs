@@ -36,7 +36,9 @@ read -r
 if [ -z "$EDITOR" ]
 then
     echo "Choose your editor (nano, vim, etc.):"
-    read -r EDITOR
+    read -r e
+    export EDITOR="$e"
+    echo "Using $EDITOR as editor."
     # Check if editor is installed
     if ! command -v "$EDITOR" &> /dev/null
     then
