@@ -36,7 +36,8 @@ read -r
 if [ -z "${EDITOR}" ]
 then
     echo "Choose your editor (nano, vim, etc.):"
-    read -r
+    # shellcheck disable=SC2162
+    read
     export EDITOR="$REPLY"
     echo "Trying to use $EDITOR as editor."
     # Check if editor is installed
