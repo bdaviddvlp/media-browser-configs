@@ -28,13 +28,15 @@ then
     exit
 fi
 
-read -pr "This script will install media-browser. Please read the instructions carefully. DO NOT proceed before the instructions are not completed. Press enter to continue"
+echo "This script will install media-browser. Please read the instructions carefully. DO NOT proceed before the instructions are not completed. Press enter to continue"
+echo "Press enter to continue"
+read -r
 
 # Set editor
 if [ -z "$EDITOR" ]
 then
     echo "Choose your editor (nano, vim, etc.):"
-    read -pr "Editor: " EDITOR
+    read -r EDITOR
     # Check if editor is installed
     if ! command -v "$EDITOR" &> /dev/null
     then
@@ -49,33 +51,41 @@ mkdir -p "$HOME/.local/share/media-browser/backend/config"
 mkdir -p "$HOME/.local/share/media-browser/frontend/config"
 
 # Create backend config file
-curl -o "$HOME/.local/share/media-browser/backend/config/local.json" https://raw.githubusercontent.com/bdaviddvlp/media-browser-configs/refs/heads/main/backend/default.json
+curl -s -o "$HOME/.local/share/media-browser/backend/config/local.json" https://raw.githubusercontent.com/bdaviddvlp/media-browser-configs/refs/heads/main/backend/default.json
 echo "Please fill in the values in $HOME/.local/share/media-browser/backend/config/local.json"
-read -pr "To edit the file, press enter to open it in $EDITOR"
+echo "To edit the file, press enter to open it in $EDITOR. Press enter to continue"
+read -r
 $EDITOR "$HOME/.local/share/media-browser/backend/config/local.json"
-read -pr "After you have filled in the values, press enter to continue"
+echo "After you have filled in the values, press enter to continue"
+read -r
 
 # Create frontend config file
-curl -o "$HOME/.local/share/media-browser/frontend/config/local.json" https://raw.githubusercontent.com/bdaviddvlp/media-browser-configs/refs/heads/main/frontend/default.json
+curl -s -o "$HOME/.local/share/media-browser/frontend/config/local.json" https://raw.githubusercontent.com/bdaviddvlp/media-browser-configs/refs/heads/main/frontend/default.json
 echo "Please fill in the values in $HOME/.local/share/media-browser/frontend/config/local.json"
-read -pr "To edit the file, press enter to open it in $EDITOR"
+echo "To edit the file, press enter to open it in $EDITOR"
+read -r
 $EDITOR "$HOME/.local/share/media-browser/frontend/config/local.json"
-read -pr "After you have filled in the values, press enter to continue"
+echo "After you have filled in the values, press enter to continue"
+read -r
 
 # Create .env file
-curl -o "$HOME/.local/share/media-browser/.env" https://raw.githubusercontent.com/bdaviddvlp/media-browser-configs/refs/heads/main/.env.example
+curl -s -o "$HOME/.local/share/media-browser/.env" https://raw.githubusercontent.com/bdaviddvlp/media-browser-configs/refs/heads/main/.env.example
 echo "Please fill in the values in $HOME/.local/share/media-browser/.env"
-read -pr "To edit the file, press enter to open it in $EDITOR"
+echo "To edit the file, press enter to open it in $EDITOR"
+read -r
 $EDITOR "$HOME/.local/share/media-browser/.env"
-read -pr "After you have filled in the values, press enter to continue"
+echo "After you have filled in the values, press enter to continue"
+read -r
+source .env
 
 #Download qbittorrent helper script
-curl -o "$HOME/.local/share/media-browser/qbittorrent_webhook_complete" https://raw.githubusercontent.com/bdaviddvlp/media-browser-configs/refs/heads/main/qbittottent_webhook_complete
+curl -s -o "$HOME/.local/share/media-browser/qbittorrent_webhook_complete" https://raw.githubusercontent.com/bdaviddvlp/media-browser-configs/refs/heads/main/qbittottent_webhook_complete
 chmod +x "$HOME/.local/share/media-browser/qbittorrent_webhook_complete"
-read -pr "Please copy the $HOME/.local/share/media-browser/qbittorrent_webhook_complete script to your PATH or if you run qbittorrent in docker, please mount it in your qbittorrent container in /usr/local/bin/qbittorrent_webhook_complete. Press enter to continue"
+echo "Please copy the $HOME/.local/share/media-browser/qbittorrent_webhook_complete script to your PATH or if you run qbittorrent in docker, please mount it in your qbittorrent container in /usr/local/bin/qbittorrent_webhook_complete. Press enter to continue"
+read -r
 
 # Download docker-compose.yml
-curl -o "$HOME/.local/share/media-browser/docker-compose.yml" https://raw.githubusercontent.com/bdaviddvlp/media-browser-configs/refs/heads/main/docker-compose.yml
+curl -s -o "$HOME/.local/share/media-browser/docker-compose.yml" https://raw.githubusercontent.com/bdaviddvlp/media-browser-configs/refs/heads/main/docker-compose.yml
 
 # Start docker compose
 docker compose -f "$HOME/.local/share/media-browser/docker-compose.yml" up -d
@@ -84,7 +94,8 @@ docker compose -f "$HOME/.local/share/media-browser/docker-compose.yml" up -d
 if [ -z "$TELEGRAM_BOT_TOKEN" ] || [ -z "$TELEGRAM_CHAT_ID" ]
 then
     echo "To authenticate with Plex, please see the logs of the backend container and follow the instructions."
-    read -pr "Press enter to continue"
+    echo "Press enter to continue"
+    read -r
     docker compose logs backend
 else
     echo "Please check your telegram to see auth code"
