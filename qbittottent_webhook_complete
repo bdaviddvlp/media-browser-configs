@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# Assign parameters with fallback for empty values
+TORRENT_NAME="${1:-Unknown}"
+CATEGORY="${2:-None}"
+TAGS="${3:-None}"
+CONTENT_PATH="${4:-None}"
+ROOT_PATH="${5:-None}"
+SAVE_PATH="${6:-None}"
+NUM_FILES="${7:-0}"
+TORRENT_SIZE="${8:-0}"
+TRACKER="${9:-None}"
+INFO_HASH_V1="${10:-None}"
+INFO_HASH_V2="${11:-None}"
+TORRENT_ID="${12:-None}"
+
+# Log file location
+LOG_FILE="/var/log/qbittorrent_complete.log"
+
+# Function to log messages
+log_message() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" | tee -a "$LOG_FILE"
+}
+
+# Log torrent information
+log_message "Torrent Completed!"
+log_message "  Name       : $TORRENT_NAME"
+log_message "  Category   : $CATEGORY"
+log_message "  Tags       : $TAGS"
+log_message "  Content    : $CONTENT_PATH"
+log_message "  Root Path  : $ROOT_PATH"
+log_message "  Save Path  : $SAVE_PATH"
+log_message "  Files      : $NUM_FILES"
+log_message "  Size       : $TORRENT_SIZE bytes"
+log_message "  Tracker    : $TRACKER"
+log_message "  Info Hash v1 : $INFO_HASH_V1"
+log_message "  Info Hash v2 : $INFO_HASH_V2"
+log_message "  Torrent ID : $TORRENT_ID"
+
+# Example: Send data to a webhook or process it further
+curl -X POST -H "Content-Type: application/json" \
+     -d '{
+        "name": "'"$TORRENT_NAME"'",
+        "category": "'"$CATEGORY"'",
+        "tags": "'"$TAGS"'",
+        "content_path": "'"$CONTENT_PATH"'",
+        "root_path": "'"$ROOT_PATH"'",
+        "save_path": "'"$SAVE_PATH"'",
+        "num_files": "'"$NUM_FILES"'",
+        "torrent_size": "'"$TORRENT_SIZE"'",
+        "tracker": "'"$TRACKER"'",
+        "info_hash_v1": "'"$INFO_HASH_V1"'",
+        "info_hash_v2": "'"$INFO_HASH_V2"'",
+        "torrent_id": "'"$TORRENT_ID"'"
+     }' "$WEBHOOK_URL" &>/dev/null
+
+exit 0

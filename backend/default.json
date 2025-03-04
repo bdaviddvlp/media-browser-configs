@@ -1,0 +1,48 @@
+{
+  "database": {
+    "username": "",
+    "password": "",
+    "database": "media-browser",
+    "host": "mongo",
+    "port": "27017"
+  },
+  "plex": {
+    "url": "",
+    "libraries": {
+      "movie": {
+        "1": ""
+      },
+      "tv": {
+        "2": ""
+      },
+      "music": {
+        "3": ""
+      }
+    }
+  },
+  "tmdb": {
+    "apiKey": ""
+  },
+  "cors": {
+    "url": ""
+  },
+  "ncore": {
+    "baseUrl": "https://ncore.pro",
+    "username": "",
+    "password": ""
+  },
+  "qbittorrent": {
+    "baseUrl": "",
+    "fileDownloadPath": {
+      "movie": "",
+      "tv": ""
+    },
+    "isDry": false
+  },
+  "admin": {
+    "username": "",
+    "email": "",
+    "password": "",
+    "isAdmin": true
+  }
+}
