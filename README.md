@@ -17,7 +17,7 @@
 
 Run the installer script
 ```
-curl -s https://raw.githubusercontent.com/bdaviddvlp/media-browser/refs/heads/main/install | bash
+curl -s https://raw.githubusercontent.com/bdaviddvlp/media-browser-configs/refs/heads/main/install | bash
 ```
 
 ## Configuration
