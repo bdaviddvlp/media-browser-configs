@@ -79,7 +79,7 @@ read -r
 $EDITOR "$HOME/.local/share/media-browser/.env"
 echo "After you have filled in the values, press enter to continue"
 read -r
-source .env
+source "$HOME/.local/share/media-browser/.env"
 
 #Download qbittorrent helper script
 curl -s -o "$HOME/.local/share/media-browser/qbittorrent_webhook_complete" https://raw.githubusercontent.com/bdaviddvlp/media-browser-configs/refs/heads/main/qbittottent_webhook_complete
